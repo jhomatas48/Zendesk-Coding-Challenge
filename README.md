@@ -1,1 +1,1 @@
-# Zendesk-Coding-Challenge
+# Zendesk Coding Challenge
