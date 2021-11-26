@@ -3,11 +3,12 @@ import requests
 from tickets.ticket import Ticket
 
 url = "https://zccvanderbilt.zendesk.com/api/v2/tickets"
+auth = "temporary"
 
 
 def get_tickets():
     header = {'Content-Type': 'application/json',
-        'Authorization': 'temp'}
+        'Authorization': auth}
     response = requests.get(url, headers=header)
     if response.status_code != 200:
         return -1
@@ -17,7 +18,7 @@ def get_tickets():
 
 def get_name_and_email(res, id_lst):
     user_url = "https://zccvanderbilt.zendesk.com/api/v2/users/show_many.json?ids=" + id_lst
-    header = {'Authorization': 'temp'}
+    header = {'Authorization': auth}
     response = requests.get(user_url, headers=header)
     if response.status_code != 200:
         data = {}
@@ -55,5 +56,3 @@ def format_tickets():
 if __name__ == '__main__':
     res = format_tickets()
     print(str(res))
-
-
