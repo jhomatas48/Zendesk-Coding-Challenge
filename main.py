@@ -54,6 +54,6 @@ def format_tickets():
 
 if __name__ == '__main__':
     res = format_tickets()
-    print(str(res[6]))
+    print(str(res))
 
 
