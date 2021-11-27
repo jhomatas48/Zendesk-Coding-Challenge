@@ -15,12 +15,14 @@ class Ticket:
         self.collaborator_ids = ticket['collaborator_ids'] if 'collaborator_ids' in ticket else None
         self.collaborators = ticket['collaborators'] if 'collaborators' in ticket else 'None'
         self.comment = ticket['comment'] if 'comment' in ticket else 'None'
-        self.created_at = datetime.strptime(ticket['created_at'], '%Y-%m-%dT%H:%M:%SZ').strftime("%b %d %Y %#I:%#M %p") \
+        self.created_date = datetime.strptime(ticket['created_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('created_at' in ticket and ticket['created_at'] is not None) else None
+        self.created_at = self.created_date.strftime("%b %d %Y %#I:%#M %p") if self.created_date is not None else 'None'
         self.custom_fields = ticket['custom_fields'] if 'custom_fields' in ticket else None
         self.description = ticket['description'] if 'description' in ticket else 'None'
-        self.due_at = datetime.strptime(ticket['due_at'], '%Y-%m-%dT%H:%M:%SZ').strftime("%b %d %Y %#I:#%M %p") \
+        self.due_date = datetime.strptime(ticket['due_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('due_at' in ticket and ticket['due_at'] is not None) else None
+        self.due_at = self.due_date.strftime("%b %d %Y %#I:%#M %p") if self.due_date is not None else 'None'
         self.email_cc_ids = ticket['email_cc_ids'] if 'email_cc_ids' in ticket else None
         self.email_ccs = ticket['email_ccs'] if 'email_ccs' in ticket else None
         self.external_id = ticket['external_id'] if 'external_id' in ticket else None
@@ -50,8 +52,9 @@ class Ticket:
         self.tags = ticket['tags'] if 'tags' in ticket else None
         self.ticket_form_id = ticket['ticket_form_id'] if 'ticket_form_id' in ticket else None
         self.type = ticket['type'] if 'type' in ticket else 'None'
-        self.updated_at = datetime.strptime(ticket['updated_at'], '%Y-%m-%dT%H:%M:%SZ').strftime("%b %d %Y %#I:%#M %p") \
+        self.updated_date = datetime.strptime(ticket['updated_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('updated_at' in ticket and ticket['updated_at'] is not None) else None
+        self.updated_at = self.updated_date.strftime("%b %d %Y %#I:%#M %p") if self.updated_date is not None else 'None'
         self.updated_stamp = ticket['updated_stamp'] if 'updated_stamp' in ticket else None
         self.url = ticket['url'] if 'url' in ticket else 'None'
         self.via = ticket['via'] if 'via' in ticket else None
@@ -62,24 +65,23 @@ class Ticket:
         self.format = self.ticket_format()
 
     def ticket_format(self):
-        res = {'submitter': {'id': self.submitter_id, 'name': 'None', 'email': 'None'},
-               'general': {'comment': self.comment, 'description': self.description, 'subject': self.subject,
-                           'type': self.type, 'url': self.url},
-               'contact': {'assignee_id': self.assignee_id, 'assignee_name': 'None', 'assignee_email': 'None',
-                           'collaborators': self.collaborators, 'email_ccs': self.email_ccs,
-                           'followers': self.followers},
-               'times': {'created_at': self.created_at, 'due_at': self.due_at, 'updated_at': self.updated_at},
-               'ids': {'assignee_id': self.assignee_id, 'attribute_value_ids': self.attribute_value_ids,
-                       'brand_id': self.brand_id, 'collaborator_ids': self.collaborator_ids,
-                       'external_id': self.external_id, 'email_cc_ids': self.email_cc_ids,
-                       'follower_ids': self.follower_ids,
-                       'followup_ids': self.followup_ids, 'forum_topic_id': self.forum_topic_id,
-                       'group_id': self.group_id, 'id': self.id_val, 'organization_id': self.organization_id,
-                       'problem_id': self.problem_id, 'sharing_agreement_ids': self.sharing_agreement_ids,
-                       'submitter_id': self.submitter_id, 'ticket_form_id': self.ticket_form_id,
-                       'via_followup_source_id': self.via_followup_source_id},
-               'attributes': {'allow_attachments': self.allow_attachments, 'allow_channelback': self.allow_channelback,
-                              'has_incidents': self.has_incidents, 'is_public': self.is_public,
-                              'safe_update': self.safe_update}
+        res = {'id': self.id_val, 'submitter_id': self.submitter_id, 'name': 'None', 'email': 'None',
+
+               'description': self.description, 'subject': self.subject, 'type': self.type,
+
+               'created_at': self.created_at, 'due_at': self.due_at, 'updated_at': self.updated_at,
+               'created_date': self.created_date, 'due_date': self.due_date, 'updated_date': self.updated_date,
+
+               'assignee_id': self.assignee_id, 'assignee_name': 'None', 'assignee_email': 'None',
+
+               'brand_id': self.brand_id, 'collaborator_ids': self.collaborator_ids,
+               'email_cc_ids': self.email_cc_ids,
+               'follower_ids': self.follower_ids,
+               'forum_topic_id': self.forum_topic_id,
+               'group_id': self.group_id, 'organization_id': self.organization_id,
+               'problem_id': self.problem_id,
+
+               'allow_attachments': self.allow_attachments, 'allow_channelback': self.allow_channelback,
+               'has_incidents': self.has_incidents, 'is_public': self.is_public, 'safe_update': self.safe_update
                }
         return res

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Zendesk Coding Challenge Ticket Viewer</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Zendesk Coding Challenge Ticket Viewer</h1>
+    <h4 style="text-align: center">View up to 25 tickets per page</h4>
+    <a href="/update">Update Ticket Data</a>
+    <table>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Submitter Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Last Updated</th>
+            <th>Submitter ID</th>
+            <th>Details</th>
+        </tr>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.description}}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.created_at}}</td>
+                <td>{{ ticket.updated_at}}</td>
+                <td>{{ ticket.submitter_id}}</td>
+                <td>
+                    <a href="/view/{{ticket.id}}">View Ticket Details</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock %}
