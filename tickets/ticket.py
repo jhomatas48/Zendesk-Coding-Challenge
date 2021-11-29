@@ -74,14 +74,7 @@ class Ticket:
 
                'assignee_id': self.assignee_id, 'assignee_name': 'None', 'assignee_email': 'None',
 
-               'brand_id': self.brand_id, 'collaborator_ids': self.collaborator_ids,
-               'email_cc_ids': self.email_cc_ids,
-               'follower_ids': self.follower_ids,
-               'forum_topic_id': self.forum_topic_id,
-               'group_id': self.group_id, 'organization_id': self.organization_id,
-               'problem_id': self.problem_id,
-
-               'allow_attachments': self.allow_attachments, 'allow_channelback': self.allow_channelback,
-               'has_incidents': self.has_incidents, 'is_public': self.is_public, 'safe_update': self.safe_update
+               'allow_attachments': self.allow_attachments, 'channelback': self.allow_channelback,
+               'incidents': self.has_incidents, 'public': self.is_public, 'safe_update': self.safe_update
                }
         return res

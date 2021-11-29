@@ -1,53 +1,55 @@
-% extends 'base.html' %}
-
-{% block head %}
-<title>Ticket Details</title>
-{% endblock %}
-
-{% block body %}
-<div class="content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view.css') }}">
+    {% block head %}
+    <title>Ticket Details</title>
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
     <h1 style="text-align: center">Details for Ticket # {{ ticket.id }}</h1>
-    <a href="/update">Return to Homepage</a>
+    <div style="text-align:center">
+        <a href="/">Return to Homepage</a>
+    </div>
     <br>
-    <table cellspacing="0" cellpadding="0">
+    <table>
         <tr>
             <th>Ticket Submitter Information</th>
         </tr>
-        <tr><th>Name: {{ ticket.name }}</th></tr>
-        <tr><th>email: {{ ticket.email }}</th></tr>
-        <tr><th>ID: {{ ticket.submitter_id }}</th></tr>
+        <tr><td>Name: {{ ticket.name }}</td></tr>
+        <tr><td>email: {{ ticket.email }}</td></tr>
+        <tr><td>ID: {{ ticket.submitter_id }}</td></tr>
     </table>
-    <br>
-    <table class="center", cellspacing="0" cellpadding="0">
+    <table>
         <tr>
             <th>Ticket Assignee Information</th>
         </tr>
-        <tr><th>Name: {{ ticket.assignee_name }}</th></tr>
-        <tr><th>email: {{ ticket.assignee_email }}</th></tr>
-        <tr><th>ID: {{ ticket.assignee_id }}</th></tr>
+        <tr><td>Name: {{ ticket.assignee_name }}</td></tr>
+        <tr><td>email: {{ ticket.assignee_email }}</td></tr>
+        <tr><td>ID: {{ ticket.assignee_id }}</td></tr>
     </table>
-    <br>
-    <table cellspacing="0" cellpadding="0">
+    <table>
         <tr>
             <th>Ticket Date Information</th>
         </tr>
-        <tr><th>Created {{ ticket.created_at }}</th></tr>
-        <tr><th>Last Updated {{ ticket.updated_at }}</th></tr>
-        <tr><th>Due at {{ ticket.due_at }}</th></tr>
+        <tr><td>Created {{ ticket.created_at }}</td></tr>
+        <tr><td>Last Updated {{ ticket.updated_at }}</td></tr>
+        <tr><td>Due at {{ ticket.due_at }}</td></tr>
     </table>
-    <br>
-    <table cellspacing="0" cellpadding="0">
+    <table>
         <tr>
             <th>Ticket Attributes</th>
         </tr>
-        <tr><th>Attachments Allowed: {{ ticket.allow_attachments }}</th></tr>
-        <tr><th>Channelback Allowed: {{ ticket.allow_channelback }}</th></tr>
-        <tr><th>Associated Incidents: {{ ticket.has_incidents }}</th></tr>
-        <tr><th>Public Ticket: {{ ticket.is_public }}</th></tr>
-        <tr><th>Safe Updates: {{ ticket.safe_update }}</th></tr>
+        <tr><td>Attachments Allowed: {{ ticket.allow_attachments }}</td></tr>
+        <tr><td>Channelback Allowed: {{ ticket.allow_channelback }}</td></tr>
+        <tr><td>Associated Incidents: {{ ticket.has_incidents }}</td></tr>
+        <tr><td>Public Ticket: {{ ticket.is_public }}</td></tr>
+        <tr><td>Safe Updates: {{ ticket.safe_update }}</td></tr>
     </table>
-
-
-    {% endif %}
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>
