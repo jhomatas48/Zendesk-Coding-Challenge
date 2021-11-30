@@ -67,7 +67,7 @@ class Ticket:
     def ticket_format(self):
         res = {'id': self.id_val, 'submitter_id': self.submitter_id, 'name': 'None', 'email': 'None',
 
-               'description': self.description, 'subject': self.subject, 'type': self.type,
+               'description': self.description, 'status': self.status, 'subject': self.subject, 'type': self.type,
 
                'created_at': self.created_at, 'due_at': self.due_at, 'updated_at': self.updated_at,
                'created_date': self.created_date, 'due_date': self.due_date, 'updated_date': self.updated_date,

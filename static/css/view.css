@@ -20,6 +20,20 @@ table {
     width: 22.5%;
 }
 
+#details {
+    float: none;
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
+}
+
+#description {
+    float: none;
+    margin-left: auto;
+    margin-right:auto;
+    width: 80%;
+}
+
 th {
     background-color: grey;
     height: 50px;
@@ -33,4 +47,21 @@ td {
 
 .form {
     margin-top: 20px;
+}
+
+a:link, a:visited {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+}
+
+a:hover {
+    background-color: #0b1067;
 }

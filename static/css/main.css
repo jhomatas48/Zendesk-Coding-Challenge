@@ -1,13 +1,7 @@
 body, html {
     margin: 0;
     font-family: serif;
-    background-color: #3B666B;
-}
-
-.content {
-    margin-left: auto;
-    margin-right: auto;
-    width: 400px;
+    background-color: #c5e4ff;
 }
 
 table, td, th {
@@ -15,9 +9,10 @@ table, td, th {
 }
 
 table {
-    margin-left: -340px;
+    margin-left: auto;
+    margin-right: auto;
     border-collapse: collapse;
-    width: 280%;
+    width: 90%;
 }
 
 th {
@@ -35,6 +30,63 @@ td {
     margin-top: 20px;
 }
 
+.update {
+    font-size: 16px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: black;
+    padding: 16px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page_count {
+    float: left;
+    margin-left: 75px;
+    font-size: 20px;
+}
+
+.pages {
+    float: right;
+    margin-right: 75px;
+}
+
 #content {
     width: 100%;
+}
+
+.btn {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.page {
+    background-color: black;
+    padding: 16px;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+}
+
+.num {
+    background-color: #2d2e30;
+    padding: 10px;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 8px;
+}
+
+.dim {
+    background-color: #bcc3c6;
+}
+
+a:hover {
+    background-color: #0b1067;
 }

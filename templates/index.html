@@ -5,37 +5,105 @@
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">Zendesk Coding Challenge Ticket Viewer</h1>
-    <h4 style="text-align: center">View up to 25 tickets per page</h4>
-    <div style="text-align:center">
-        <a href="/">Update Ticket Data</a>
-    </div>
-    <table>
+<h1 style="text-align: center">Zendesk Coding Challenge Ticket Viewer</h1>
+<h2 style="text-align: center">Viewing tickets for requester Jamison Homatas</h2>
+<h3 style="text-align: center">View up to 25 tickets per page</h3>
+<div style="text-align: center">
+    <a href="/" class="update">Refresh Ticket Data</a>
+</div>
+<br>
+<div class="box pages">
+    <a href="{{ url_for('index', page=tickets.prev_num) }}"
+       class="btn page
+       {% if tickets.page == 1 %}disabled{% endif %}">
+        &laquo;
+    </a>
+    {% for page_num in tickets.iter_pages() %}
+        {% if page_num %}
+            {% if tickets.page == page_num %}
+            <a href="{{ url_for('index', page=page_num) }}"
+               class="btn num dim">
+                {{ page_num }}
+            </a>
+            {% else %}
+            <a href="{{ url_for('index', page=page_num) }}"
+               class="btn num">
+                {{ page_num }}
+            </a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('index', page=tickets.next_num) }}"
+       class="btn page
+       {% if tickets.page == tickets.pages %}
+       disabled
+       {% endif %}">
+        &raquo;
+    </a>
+</div>
+<div class="box page_count">
+    <h4>Showing page {{ tickets.page }} of {{ tickets.pages }}</h4>
+</div>
+<br>
+<table>
+    <tr>
+        <th>Ticket ID</th>
+        <th>Submitter Name</th>
+        <th>Subject</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Created</th>
+        <th>Last Updated</th>
+        <th>Submitter ID</th>
+        <th>Details</th>
+    </tr>
+    {% for ticket in tickets.items %}
         <tr>
-            <th>Ticket ID</th>
-            <th>Submitter Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Last Updated</th>
-            <th>Submitter ID</th>
-            <th>Details</th>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.name }}</td>
+            <td>{{ ticket.subject}}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.type }}</td>
+            <td>{{ ticket.created_at}}</td>
+            <td>{{ ticket.updated_at}}</td>
+            <td>{{ ticket.submitter_id}}</td>
+            <td>
+                <a href="/view/{{ticket.id}}">View Ticket Details</a>
+            </td>
         </tr>
-        {% for ticket in tickets %}
-            <tr>
-                <td>{{ ticket.id }}</td>
-                <td>{{ ticket.name }}</td>
-                <td>{{ ticket.description}}</td>
-                <td>{{ ticket.status }}</td>
-                <td>{{ ticket.created_at}}</td>
-                <td>{{ ticket.updated_at}}</td>
-                <td>{{ ticket.submitter_id}}</td>
-                <td>
-                    <a href="/view/{{ticket.id}}">View Ticket Details</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% endfor %}
+</table>
+
+<div class="box pages">
+    <a href="{{ url_for('index', page=tickets.prev_num) }}"
+       class="btn page
+       {% if tickets.page == 1 %}disabled{% endif %}">
+        &laquo;
+    </a>
+    {% for page_num in tickets.iter_pages() %}
+        {% if page_num %}
+            {% if tickets.page == page_num %}
+            <a href="{{ url_for('index', page=page_num) }}"
+               class="btn num dim">
+                {{ page_num }}
+            </a>
+            {% else %}
+            <a href="{{ url_for('index', page=page_num) }}"
+               class="btn num">
+                {{ page_num }}
+            </a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('index', page=tickets.next_num) }}"
+       class="btn page
+       {% if tickets.page == tickets.pages %}
+       disabled
+       {% endif %}">
+        &raquo;
+    </a>
+</div>
+<div class="box page_count">
+    <h4>Showing page {{ tickets.page }} of {{ tickets.pages }}</h4>
 </div>
 {% endblock %}

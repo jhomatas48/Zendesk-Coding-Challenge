@@ -16,6 +16,33 @@
         <a href="/">Return to Homepage</a>
     </div>
     <br>
+    <div style="font-size: 16px; float: right; margin-right: 25px;">
+        <a href="/next/{{ticket.id}}">View Next Ticket</a>
+    </div>
+    <div style="font-size: 16px; float: left; margin-left: 25px;">
+        <a href="/prev/{{ticket.id}}">View Previous Ticket</a>
+    </div>
+    <br><br><br><br>
+    <table id="details">
+        <tr>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Type</th>
+        </tr>
+        <tr>
+            <td>{{ ticket.subject }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.type }}</td>
+        </tr>
+    </table>
+    <br>
+    <table id="description">
+        <tr>
+            <th>Description</th>
+            <td>{{ ticket.description }}</td>
+        </tr>
+    </table>
+    <br><br>
     <table>
         <tr>
             <th>Ticket Submitter Information</th>
@@ -36,18 +63,18 @@
         <tr>
             <th>Ticket Date Information</th>
         </tr>
-        <tr><td>Created {{ ticket.created_at }}</td></tr>
-        <tr><td>Last Updated {{ ticket.updated_at }}</td></tr>
-        <tr><td>Due at {{ ticket.due_at }}</td></tr>
+        <tr><td>Created: {{ ticket.created_at }}</td></tr>
+        <tr><td>Last Updated: {{ ticket.updated_at }}</td></tr>
+        <tr><td>Due Date: {{ ticket.due_at }}</td></tr>
     </table>
     <table>
         <tr>
             <th>Ticket Attributes</th>
         </tr>
         <tr><td>Attachments Allowed: {{ ticket.allow_attachments }}</td></tr>
-        <tr><td>Channelback Allowed: {{ ticket.allow_channelback }}</td></tr>
-        <tr><td>Associated Incidents: {{ ticket.has_incidents }}</td></tr>
-        <tr><td>Public Ticket: {{ ticket.is_public }}</td></tr>
+        <tr><td>Channelback Allowed: {{ ticket.channelback }}</td></tr>
+        <tr><td>Associated Incidents: {{ ticket.incidents }}</td></tr>
+        <tr><td>Public Ticket: {{ ticket.public }}</td></tr>
         <tr><td>Safe Updates: {{ ticket.safe_update }}</td></tr>
     </table>
     {% endblock %}
