@@ -60,27 +60,31 @@ def login():
         return render_template('login.html', error=None)
     email = request.form.get('email')
     password = request.form.get('password')
+    subdomain = request.form.get('subdomain')
+    domain = subdomain + ".zendesk.com"
     combined = email + ':' + password
     encoded_u = base64.b64encode(combined.encode()).decode()
     basic = "Basic " + encoded_u
-    requester = get_requester_info(basic)
+    requester = get_requester_info(basic, domain)
     if requester is None:
         error = "Invalid credentials, try another email password combination."
         return render_template('login.html', error=error)
-    res = format_tickets(basic, requester[3])
+    res = format_tickets(basic, domain)
     if res is None:
         error = "Could not connect to the Zendesk API."
         return render_template('login.html', error=error)
     engine = create_engine("sqlite:///tickets.db")
     res.to_sql(con=engine, name='ticket_table', if_exists='replace', index=False)
     session['auth'] = basic
+    session['domain'] = domain
     return redirect('/tickets')
 
 
 @app.route('/tickets', methods=['GET'])
 def index():
     auth = session['auth']
-    requester = get_requester_info(auth)
+    domain = session['domain']
+    requester = get_requester_info(auth, domain)
     if requester is None:
         return "Error: could not find user"
     page = request.args.get('page', 1, type=int)

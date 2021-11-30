@@ -29,8 +29,8 @@ def get_tickets(auth, domain):
     return data
 
 
-def get_requester_info(auth):
-    me_url = "https://zccvanderbilt.zendesk.com/api/v2/users/me"
+def get_requester_info(auth, subdomain):
+    me_url = "https://" + subdomain + "/api/v2/users/me"
     header = {'Authorization': auth}
     response = requests.get(me_url, headers=header)
     if response.status_code != 200:
@@ -39,10 +39,7 @@ def get_requester_info(auth):
     my_id = data['user']['id']
     name = data['user']['name'] if 'name' in data['user'] else ''
     email = data['user']['email'] if 'email' in data['user'] else ''
-    if 'url' not in data['user']:
-        return None
-    domain = data['user']['url'].split('/')[2]
-    return [my_id, name, email, domain]
+    return [my_id, name, email]
 
 
 def get_name_and_email(res, id_lst, auth, domain):
