@@ -26,10 +26,6 @@ td {
     padding: 10px;
 }
 
-.form {
-    margin-top: 20px;
-}
-
 .update {
     font-size: 16px;
     border: none;
@@ -89,4 +85,17 @@ td {
 
 a:hover {
     background-color: #0b1067;
+}
+
+.login {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.is-large {
+    padding: 16px;
+    font-size: 16px;
+    margin: 0 auto;
+    display: block;
+    width: 20%;
 }

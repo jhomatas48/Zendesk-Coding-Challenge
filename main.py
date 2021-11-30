@@ -1,14 +1,17 @@
-from flask import Flask, render_template, url_for, request, redirect
+import base64
+
+from flask import Flask, render_template, url_for, request, redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
 import pandas as pd
 from datetime import datetime
-from tickets.get_tickets import format_tickets
+from tickets.get_tickets import format_tickets, get_requester_info
 import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tickets.db'
+app.secret_key = 'b340u608t35ub4y0832ub4t02'
 db = SQLAlchemy(app)
 
 
@@ -22,6 +25,7 @@ class TicketList(db.Model):
     status = db.Column(db.String)
     subject = db.Column(db.String)
     type = db.Column(db.String)
+    tags = db.Column(db.String)
 
     assignee_id = db.Column(db.Integer)
     submitter_id = db.Column(db.Integer)
@@ -47,13 +51,39 @@ class TicketList(db.Model):
 
 
 @app.route('/', methods=['GET'])
-def index():
+def start():
+    return redirect('/login')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html', error=None)
+    email = request.form.get('email')
+    password = request.form.get('password')
+    combined = email + ':' + password
+    encoded_u = base64.b64encode(combined.encode()).decode()
+    basic = "Basic " + encoded_u
+    res = format_tickets(basic)
+    if res is None:
+        error = "Invalid credentials, try another email password combination."
+        return render_template('login.html', error=error)
     engine = create_engine("sqlite:///tickets.db")
-    df = format_tickets()
-    df.to_sql(con=engine, name='ticket_table', if_exists='replace', index=False)
+    res.to_sql(con=engine, name='ticket_table', if_exists='replace', index=False)
+    session['auth'] = basic
+    return redirect('/tickets')
+
+
+@app.route('/tickets', methods=['GET'])
+def index():
+    auth = session['auth']
+    requester = get_requester_info(auth)
+    if requester is None:
+        return "Error: could not find user"
     page = request.args.get('page', 1, type=int)
     tickets = TicketList.query.paginate(page=page, per_page=25)
-    return render_template('index.html', tickets=tickets)
+    return render_template('index.html', tickets=tickets, requester_id=requester[0],
+                           requester_name=requester[1], requester_email=requester[2])
 
 
 @app.route('/view/<int:id>', methods=['GET'])

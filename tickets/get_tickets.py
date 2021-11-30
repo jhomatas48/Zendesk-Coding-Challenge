@@ -7,7 +7,7 @@ url = "https://zccvanderbilt.zendesk.com/api/v2/tickets"
 auth = "Basic temp"
 
 
-def get_tickets():
+def get_tickets(auth):
     """
     get_tickets calls the Zendesk API to get a list of tickets.
     If there are more than 100 entries, calls the next page
@@ -21,14 +21,27 @@ def get_tickets():
     while curr_url is not None:
         response = requests.get(curr_url, headers=header)
         if response.status_code != 200:
-            return -1
+            return None
         curr_data = json.loads(response.text)
         curr_url = curr_data["next_page"]
         data.append(curr_data)
     return data
 
 
-def get_name_and_email(res, id_lst):
+def get_requester_info(auth):
+    me_url = "https://zccvanderbilt.zendesk.com/api/v2/users/me"
+    header = {'Authorization': auth}
+    response = requests.get(me_url, headers=header)
+    if response.status_code != 200:
+        return None
+    data = json.loads(response.text)
+    my_id = data['user']['id']
+    name = data['user']['name'] if 'name' in data['user'] else ''
+    email = data['user']['email'] if 'email' in data['user'] else ''
+    return [my_id, name, email]
+
+
+def get_name_and_email(res, id_lst, auth):
     """
     get_name_and_email calls the Zendesk API to get the name and email
     of each submitter and assignee.
@@ -42,7 +55,7 @@ def get_name_and_email(res, id_lst):
     while curr_url is not None:
         response = requests.get(curr_url, headers=header)
         if response.status_code != 200:
-            return -1
+            return None
         else:
             data = json.loads(response.text)
         new_data = {}
@@ -59,17 +72,17 @@ def get_name_and_email(res, id_lst):
     return res
 
 
-def format_tickets():
+def format_tickets(auth):
     """
     format_tickets calls get_tickets and creates a Ticket object for every ticket.
     Formats the information in each ticket and calls get_name_and_email.
 
     :return: DataFrame containing all ticket information
     """
-    val = get_tickets()
-    if val == -1:
+    val = get_tickets(auth)
+    if val is None:
         print("Error: Could not connect to Zendesk API")
-        exit()
+        return None
     res = {}
     id_set = ""
     for v in val:
@@ -79,12 +92,12 @@ def format_tickets():
             ticket_id = t_format['id']
             res[ticket_id] = t_format
             id_set += str(ticket.submitter_id) + ',' + str(ticket.assignee_id) + ','
-    res = get_name_and_email(res, id_set)
-    if res == -1:
-        return -1
+    res = get_name_and_email(res, id_set, auth)
+    if res is None:
+        return None
     return pd.DataFrame.from_records(res).T
 
 
 if __name__ == '__main__':
-    res = format_tickets()
+    res = format_tickets("Basic temp")
     print(res)

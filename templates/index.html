@@ -6,12 +6,16 @@
 
 {% block body %}
 <h1 style="text-align: center">Zendesk Coding Challenge Ticket Viewer</h1>
-<h2 style="text-align: center">Viewing tickets for requester Jamison Homatas</h2>
+<h2 style="text-align: center">Welcome, {{ requester_name }}!</h2>
+<h3 style="text-align: center">You are signed in as {{ requester_email }} (Requester ID {{ requester_id }})</h3>
 <h3 style="text-align: center">View up to 25 tickets per page</h3>
-<div style="text-align: center">
-    <a href="/" class="update">Refresh Ticket Data</a>
+<div style="text-align: center; float: left; margin-left: 515px; width: 15%">
+    <a href="/tickets" class="update">Refresh Ticket Data</a>
 </div>
-<br>
+<div style="text-align: center; float: left;">
+    <a href="/login" class="update">Sign Out</a>
+</div>
+<br><br><br>
 <div class="box pages">
     <a href="{{ url_for('index', page=tickets.prev_num) }}"
        class="btn page

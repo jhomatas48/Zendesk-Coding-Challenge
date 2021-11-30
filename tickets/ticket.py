@@ -50,6 +50,13 @@ class Ticket:
         self.subject = ticket['subject'] if 'subject' in ticket else 'None'
         self.submitter_id = ticket['submitter_id'] if 'submitter_id' in ticket else None
         self.tags = ticket['tags'] if 'tags' in ticket else None
+        if self.tags is None:
+            self.tags = ""
+        else:
+            s = ""
+            for i in self.tags:
+                s += i + ', '
+            self.tags = s[:-2]
         self.ticket_form_id = ticket['ticket_form_id'] if 'ticket_form_id' in ticket else None
         self.type = ticket['type'] if 'type' in ticket else 'None'
         self.updated_date = datetime.strptime(ticket['updated_at'], '%Y-%m-%dT%H:%M:%SZ') \
@@ -67,7 +74,8 @@ class Ticket:
     def ticket_format(self):
         res = {'id': self.id_val, 'submitter_id': self.submitter_id, 'name': 'None', 'email': 'None',
 
-               'description': self.description, 'status': self.status, 'subject': self.subject, 'type': self.type,
+               'description': self.description, 'status': self.status, 'subject': self.subject,
+               'type': self.type, 'tags': self.tags,
 
                'created_at': self.created_at, 'due_at': self.due_at, 'updated_at': self.updated_at,
                'created_date': self.created_date, 'due_date': self.due_date, 'updated_date': self.updated_date,

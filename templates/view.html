@@ -13,7 +13,7 @@
     {% block body %}
     <h1 style="text-align: center">Details for Ticket # {{ ticket.id }}</h1>
     <div style="text-align:center">
-        <a href="/">Return to Homepage</a>
+        <a href="/tickets">Return to Homepage</a>
     </div>
     <br>
     <div style="font-size: 16px; float: right; margin-right: 25px;">
@@ -28,11 +28,13 @@
             <th>Subject</th>
             <th>Status</th>
             <th>Type</th>
+            <th>Tags</th>
         </tr>
         <tr>
             <td>{{ ticket.subject }}</td>
             <td>{{ ticket.status }}</td>
             <td>{{ ticket.type }}</td>
+            <td>{{ ticket.tags }}</td>
         </tr>
     </table>
     <br>
