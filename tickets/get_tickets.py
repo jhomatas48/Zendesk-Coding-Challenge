@@ -29,8 +29,8 @@ def get_tickets(auth, domain):
     return data
 
 
-def get_requester_info(auth, subdomain):
-    me_url = "https://" + subdomain + "/api/v2/users/me"
+def get_requester_info(auth, domain):
+    me_url = "https://" + domain + "/api/v2/users/me"
     header = {'Authorization': auth}
     response = requests.get(me_url, headers=header)
     if response.status_code != 200:

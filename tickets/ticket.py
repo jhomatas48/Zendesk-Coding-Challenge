@@ -17,12 +17,12 @@ class Ticket:
         self.comment = ticket['comment'] if 'comment' in ticket else 'None'
         self.created_date = datetime.strptime(ticket['created_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('created_at' in ticket and ticket['created_at'] is not None) else None
-        self.created_at = self.created_date.strftime("%b %d %Y %#I:%#M %p") if self.created_date is not None else 'None'
+        self.created_at = self.created_date.strftime("%b %d %Y %I:%M %p") if self.created_date is not None else 'None'
         self.custom_fields = ticket['custom_fields'] if 'custom_fields' in ticket else None
         self.description = ticket['description'] if 'description' in ticket else 'None'
         self.due_date = datetime.strptime(ticket['due_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('due_at' in ticket and ticket['due_at'] is not None) else None
-        self.due_at = self.due_date.strftime("%b %d %Y %#I:%#M %p") if self.due_date is not None else 'None'
+        self.due_at = self.due_date.strftime("%b %d %Y %I:%M %p") if self.due_date is not None else 'None'
         self.email_cc_ids = ticket['email_cc_ids'] if 'email_cc_ids' in ticket else None
         self.email_ccs = ticket['email_ccs'] if 'email_ccs' in ticket else None
         self.external_id = ticket['external_id'] if 'external_id' in ticket else None
@@ -61,7 +61,7 @@ class Ticket:
         self.type = ticket['type'] if 'type' in ticket else 'None'
         self.updated_date = datetime.strptime(ticket['updated_at'], '%Y-%m-%dT%H:%M:%SZ') \
             if ('updated_at' in ticket and ticket['updated_at'] is not None) else None
-        self.updated_at = self.updated_date.strftime("%b %d %Y %#I:%#M %p") if self.updated_date is not None else 'None'
+        self.updated_at = self.updated_date.strftime("%b %d %Y %I:%M %p") if self.updated_date is not None else 'None'
         self.updated_stamp = ticket['updated_stamp'] if 'updated_stamp' in ticket else None
         self.url = ticket['url'] if 'url' in ticket else 'None'
         self.via = ticket['via'] if 'via' in ticket else None
