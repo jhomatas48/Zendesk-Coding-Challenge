@@ -3,7 +3,6 @@ import base64
 from flask import Flask, render_template, url_for, request, redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database
 import pandas as pd
 from datetime import datetime
 from tickets.get_tickets import format_tickets, get_requester_info
@@ -64,9 +63,13 @@ def login():
     combined = email + ':' + password
     encoded_u = base64.b64encode(combined.encode()).decode()
     basic = "Basic " + encoded_u
-    res = format_tickets(basic)
-    if res is None:
+    requester = get_requester_info(basic)
+    if requester is None:
         error = "Invalid credentials, try another email password combination."
+        return render_template('login.html', error=error)
+    res = format_tickets(basic, requester[3])
+    if res is None:
+        error = "Could not connect to the Zendesk API."
         return render_template('login.html', error=error)
     engine = create_engine("sqlite:///tickets.db")
     res.to_sql(con=engine, name='ticket_table', if_exists='replace', index=False)
