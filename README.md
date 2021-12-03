@@ -40,6 +40,6 @@
 #### In your terminal, navigate to the tests directory of the project. Then run the command ```pytest``` to see test results or run ```pytest -vv``` to see the full testing details.
 
 ## Additional Details & Final Thoughts:
-#### I would have liked to optimize my approach for this if given more time. While the ticket viewer updates quickly for small data, it may not scale very well to larger data. With that being said, I had a very fun time on this project and learned a lot in the process!
+#### I would have liked to optimize my approach for this if given more time. While the ticket viewer updates quickly for small data, it may not scale very well to larger data. Additionally, I was not able to implement the full extent of testing that I would have liked to for the user interface. This was due to (1) the fact that I learned Flask recently to complete this coding challenge and (2) lack of time. With that being said, I had a very fun time on this project and learned a lot in the process!
 #### Hope you enjoy my Zendesk ticket viewer!
 
