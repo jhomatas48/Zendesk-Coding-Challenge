@@ -28,7 +28,7 @@
 #### Every ticket entry contains a link to view the ticket's details in single-view format:
 ![alt text](images/zendesk_single.png)
 #### This contains more specific information about each ticket.
-#### You may alo navigate to adjacent ticket entries while in single-view mode and can return home at any point.
+#### You may also navigate to adjacent ticket entries while in single-view mode and can return home at any point.
 
 ## Unit Testing Information:
 #### These unit tests first cover retriving the ticket information from the Zendesk API and formatting the data properly.
@@ -40,6 +40,6 @@
 #### In your terminal, navigate to the tests directory of the project. Then run the command ```pytest``` to see test results or run ```pytest -vv``` to see the full testing details.
 
 ## Additional Details & Final Thoughts:
-#### I would have liked to optimize my approach for this if given more time. While the ticket viewer updates quickly for small data, it may not scale very well to larger data. I had a very fun time on this project and learned a lot in the process!
+#### I would have liked to optimize my approach for this if given more time. While the ticket viewer updates quickly for small data, it may not scale very well to larger data. With that being said, I had a very fun time on this project and learned a lot in the process!
 #### Hope you enjoy my Zendesk ticket viewer!
 
