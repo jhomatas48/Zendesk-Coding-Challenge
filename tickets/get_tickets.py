@@ -4,7 +4,6 @@ from tickets.ticket import Ticket
 import pandas as pd
 
 url = "https://zccvanderbilt.zendesk.com/api/v2/tickets"
-auth = "Basic temp"
 
 
 def get_tickets(auth, domain):

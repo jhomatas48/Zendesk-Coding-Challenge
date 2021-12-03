@@ -5,8 +5,6 @@ from tickets.get_tickets import get_tickets, get_name_and_email, format_tickets
 from tickets.get_tickets import get_tickets
 
 
-
-
 def test_retrieved_data():
     with open("tests/tickets.json") as tickets_json:
         input_tickets = json.loads(tickets_json.read())

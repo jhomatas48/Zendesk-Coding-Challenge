@@ -3,10 +3,7 @@ import base64
 from flask import Flask, render_template, url_for, request, redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
-import pandas as pd
-from datetime import datetime
 from tickets.get_tickets import format_tickets, get_requester_info
-import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tickets.db'
