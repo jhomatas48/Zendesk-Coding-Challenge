@@ -6,14 +6,36 @@ from flask import Flask
 import json
 
 from main import app
+from tests.credentials import credentials
+import base64
 
+client = app.test_client()
+
+creds = credentials()
+email = creds['email']
+password = creds['password']
+subdomain = creds['subdomain']
+name = creds['name']
+domain = subdomain + ".zendesk.com"
+print('hi')
+combined = email + ':' + password
+encoded_u = base64.b64encode(combined.encode()).decode()
+auth = "Basic " + encoded_u
 
 def test_start():
-    client = app.test_client()
     url = '/'
     response = client.get(url)
-    assert response.get_data() == "hello"
+    assert response.get_data() is not None
     assert response.status_code == 302
+
+def test_login():
+    url = '/login'
+    response = client.get(url)
+    assert response.status_code == 200
+    response_post = client.post(url)
+    assert response_post.status_code == 200
+
+
 
 '''
 def test_post_route__success():

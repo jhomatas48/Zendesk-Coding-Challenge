@@ -19,7 +19,10 @@ def get_tickets(auth, domain):
     curr_url = url
     data = []
     while curr_url is not None:
-        response = requests.get(curr_url, headers=header)
+        try:
+            response = requests.get(curr_url, headers=header)
+        except Exception:
+            return None
         if response.status_code != 200:
             return None
         curr_data = json.loads(response.text)
@@ -31,11 +34,16 @@ def get_tickets(auth, domain):
 def get_requester_info(auth, domain):
     me_url = "https://" + domain + "/api/v2/users/me"
     header = {'Authorization': auth}
-    response = requests.get(me_url, headers=header)
+    try:
+        response = requests.get(me_url, headers=header)
+    except Exception:
+        return None
     if response.status_code != 200:
         return None
     data = json.loads(response.text)
     my_id = data['user']['id']
+    if my_id is None:
+        return None
     name = data['user']['name'] if 'name' in data['user'] else ''
     email = data['user']['email'] if 'email' in data['user'] else ''
     return [my_id, name, email]
