@@ -15,7 +15,7 @@
 #### Click this link and you will be redirected to the following login page:
 ![alt text](images/zendesk_login.png)
 
-## Home Page:
+### Home Page:
 #### Enter in your Zendesk account email, password, and Zendesk subdomain and login.
 #### You will now be redirected to the following ticket viewer page:
 ![alt text](images/zendesk_home.png)
